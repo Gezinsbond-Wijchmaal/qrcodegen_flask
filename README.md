@@ -1,1 +1,1 @@
-# qrcodegen_flask
+QR Code Generator in Python via Flask
