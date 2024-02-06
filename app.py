@@ -41,7 +41,7 @@ def qr_genw():
         subtekst = request.form['Subtekst']
         afdeling = 'Wijchmaal'  # Voorbeeld, aanpassen naar behoefte
         qr_img_io = genereer_qr_en_afbeelding(url, subtekst, afdeling)
-        return send_file(qr_img_io, mimetype='image/png', attachment_filename='qr_code.png')
+        return send_file(qr_img_io, mimetype='image/png')  # Verwijder 'attachment_filename'
 
     return render_template('qr_genw.html')
 
