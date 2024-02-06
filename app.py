@@ -1,4 +1,6 @@
-from flask import Flask, request, render_template, redirect, url_for, flash
+from flask import Flask, request, render_template, redirect, url_for, flash, send_file
+from qr_genw import genereer_qr_en_afbeelding
+
 app = Flask(__name__)
 app.secret_key = 'jouw_geheime_sleutel'
 
@@ -31,6 +33,17 @@ def fout_wachtwoord():
 @app.route('/menu')
 def menu():
     return render_template('menu.html')
+
+@app.route('/qr_genw', methods=['GET', 'POST'])
+def qr_genw():
+    if request.method == 'POST':
+        url = request.form['URL']
+        subtekst = request.form['Subtekst']
+        afdeling = 'Wijchmaal'  # Voorbeeld, aanpassen naar behoefte
+        qr_img_io = genereer_qr_en_afbeelding(url, subtekst, afdeling)
+        return send_file(qr_img_io, mimetype='image/png', attachment_filename='qr_code.png')
+
+    return render_template('qr_genw.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
